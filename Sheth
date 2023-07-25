@@ -1,0 +1,18 @@
+#!/bin/bash
+
+TOMCAT_HOME="/var/Mediation/apache-tomcat-9.0.54/"
+
+TOMCAT_LOGS="/var/Mediation/apache-tomcat-9.0.54/mediationlogs/*"
+
+tomcat_pid=`ps aux | grep $TOMCAT_HOME | grep org.apache.catalina.startup.Bootstrap | grep -v grep | awk '{ print $2 }'`
+
+echo $tomcat_pid
+
+#tomcat_pid_killing = `ps aux | grep $TOMCAT_HOME | grep org.apache.catalina.startup.Bootstrap | grep -v grep | awk '{ print $2 }' |  xargs sudo kill -9`
+
+
+kill -9  $tomcat_pid
+
+rm -rf $TOMCAT_LOGS
+
+cd $TOMCAT_HOME && $TOMCAT_HOME/./bin/catalina.sh start
